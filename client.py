@@ -3,7 +3,8 @@ import socket as mysoc
 import pickle
 import sys
 
-file_name = sys.argv[1]
+rs_host = sys.argv[1]
+file_name = sys.argv[2]
 
 def client():
     #[ rs socket]
