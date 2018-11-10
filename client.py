@@ -1,6 +1,9 @@
 #Client
 import socket as mysoc
 import pickle
+import sys
+
+file_name = sys.argv[1]
 
 def client():
     #[ rs socket]
@@ -13,8 +16,8 @@ def client():
     #load file with hostname information to be resolved
     try:
         #fname = input("Enter file to read (Ex: foo.txt): ")
-        fname = "PROJ2-HNS.txt"
-        fr = open(fname, "r")
+        # fname = "PROJ2-HNS.txt"
+        fr = open(file_name, "r")
     except IOError as err:
         print('{} \n'.format("File Open Error ",err))
         print("Please ensure desired file to reverse exists in source folder and is named PROJI-HNS.txt")

@@ -1,6 +1,11 @@
 #RS server
 import socket as mysoc
 import pickle
+import sys
+
+com_host = sys.argv[1]
+edu_host = sys.argv[2]
+file_name = sys.argv[3]
 
 def rs():
     #initialize RS socket
@@ -26,8 +31,8 @@ def rs():
 
     #load file with table information
     try:
-        fname = "PROJ2-DNSRS.txt"
-        fr = open(fname, "r")
+        # fname = "PROJ2-DNSRS.txt"
+        fr = open(file_name, "r")
     except IOError as err:
         print('{} \n'.format("File Open Error ",err))
         print("Please ensure desired file to reverse exists in source folder and is named PROJI-DNSRS.txt")
@@ -39,8 +44,8 @@ def rs():
     RS_table = {}
     #List of information for TS Server in format [TS Host Name, TS_IP, Flag]
     # {hostname: {ip: x , flag: y}}
-    edu = ""
-    com = ""
+    edu = edu_host
+    com = com_host
     for line in fr:
         #Per entry, use split to create list of words
         #format = {host : {'ip': ip, 'flag': flag}
