@@ -25,7 +25,8 @@ def client():
         exit()
 
     #[determine hostname of RS server and port ]
-    sa_sameas_myaddr = mysoc.gethostbyname(mysoc.gethostname())
+    # print(rs_host)
+    sa_sameas_myaddr = mysoc.gethostbyname(rs_host)
     # sa_sameas_myaddr = 'grep.cs.rutgers.edu'
     # Define the port on which you want to connect to the server
     port = 50008
