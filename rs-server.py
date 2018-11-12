@@ -35,7 +35,7 @@ def rs():
         fr = open(file_name, "r")
     except IOError as err:
         print('{} \n'.format("File Open Error ",err))
-        print("Please ensure desired file to reverse exists in source folder and is named PROJI-DNSRS.txt")
+        print("Please ensure desired file to reverse exists in source folder")
         exit()
 
     #using dictionary structure to store table information
@@ -44,8 +44,11 @@ def rs():
     RS_table = {}
     #List of information for TS Server in format [TS Host Name, TS_IP, Flag]
     # {hostname: {ip: x , flag: y}}
+    
     edu = edu_host
+    RS_table[edu] = {'ip': mysoc.gethostbyname(edu), 'flag':'NS'}
     com = com_host
+    RS_table[com] = {'ip': mysoc.gethostbyname(com), 'flag':'NS'}
     for line in fr:
         #Per entry, use split to create list of words
         #format = {host : {'ip': ip, 'flag': flag}
@@ -56,12 +59,12 @@ def rs():
             pass
         # RS_table[tokenize[0].strip()] = [tokenize[1].strip(),tokenize[2].strip()]
         RS_table[tokenize[0].strip()] = {'ip': tokenize[1].strip(), 'flag':tokenize[2].strip()}
-        # if 'NS' in (RS_table[tokenize[0]])[1]:
-        if RS_table[tokenize[0].strip()]['flag'] == 'NS':
+        # Legacy TS Server Parsing Code, now using Command Line Arguments: if 'NS' in (RS_table[tokenize[0]])[1]:
+        """ if RS_table[tokenize[0].strip()]['flag'] == 'NS':
             if ".edu" in tokenize[0].strip():
                 edu = tokenize[0].strip()
             if ".com" in tokenize[0].strip():
-                com = tokenize[0].strip()
+                com = tokenize[0].strip() """
     if not edu:
         print("Warning, no TS.edu server to redirect miss\n")
     if not com:
@@ -100,7 +103,7 @@ def rs():
                     if firstEDU:
                         firstEDU = False
                         try:
-                            sa_sameas_myaddr = mysoc.gethostbyname(RS_table[edu]['ip'])
+                            sa_sameas_myaddr = RS_table[edu]['ip']
                             port = 5677
                             server_binding = (sa_sameas_myaddr, port)
                             rstotsedu.connect(server_binding)
@@ -118,7 +121,7 @@ def rs():
                     if firstCOM:
                         firstCOM = False
                         try:
-                            sa_sameas_myaddr = mysoc.gethostbyname(RS_table[com]['ip'])
+                            sa_sameas_myaddr = RS_table[com]['ip']
                             port = 5678
                             server_binding = (sa_sameas_myaddr, port)
                             rstotscom.connect(server_binding)

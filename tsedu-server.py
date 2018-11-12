@@ -19,7 +19,7 @@ def ts():
         fr = open(file_name, "r")
     except IOError as err:
         print('{} \n'.format("File Open Error ",err))
-        print("Please ensure desired file to reverse exists in source folder and is named PROJ2-DNSTS.txt")
+        print("Please ensure desired file to reverse exists in source folder")
         exit()
 
     TS_table = {}
